@@ -22,6 +22,7 @@ Enemy.prototype.update = function(dt) {
 
   if(this.x > 6 * 101) {
     this.x = -101;
+    this.speed = getRandomInt(100, 200);
   }
 
   // Handle collisions with the player
