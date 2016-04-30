@@ -21,6 +21,12 @@ Enemy.prototype.update = function(dt) {
   if(this.x > 6 * 83) {
     this.reset();
   }
+
+  // Handle collisions with the player
+  if(Math.abs(this.x - player.x) < 101 &&
+      Math.abs(this.y - player.y) < 83) {
+    player.reset();
+  }
 };
 
 // Draw the enemy on the screen, required method for game
