@@ -29,6 +29,7 @@ Enemy.prototype.update = function(dt) {
   if(Math.abs(this.x - player.x) < 101 &&
       Math.abs(this.y - player.y) < 83) {
     player.reset();
+    score.updateMiss();
   }
 };
 
@@ -63,6 +64,7 @@ Player.prototype.update = function() {
   // Reset the player's position... has reached the water
   if(this.row == 0) {
     this.reset();
+    score.updateSuccess();
   }
 
   this.x = this.col * 101;
@@ -99,6 +101,21 @@ Player.prototype.reset = function() {
   this.y = this.row * 83;
 };
 
+var Score = function() {
+  this.success = 0;
+  this.miss = 0;
+};
+
+Score.prototype.updateSuccess = function() {
+  this.success += 1;
+  document.getElementById('score-success').innerHTML = this.success;
+};
+
+Score.prototype.updateMiss = function() {
+  this.miss += 1;
+  document.getElementById('score-miss').innerHTML = this.miss;
+};
+
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
@@ -110,6 +127,7 @@ for(var i = 0; i < numEnemies; i++) {
 }
 
 var player = new Player();
+var score = new Score();
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
