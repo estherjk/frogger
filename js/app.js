@@ -1,5 +1,5 @@
 // Enemies our player must avoid
-var Enemy = function() {
+var Enemy = function(x, y) {
   // Variables applied to each of our instances go here,
   // we've provided one for you to get started
 
@@ -7,7 +7,9 @@ var Enemy = function() {
   // a helper we've provided to easily load images
   this.sprite = 'images/enemy-bug.png';
 
-  this.reset();
+  this.x = x;
+  this.y = y;
+  this.speed = getRandomInt(100, 200);
 };
 
 // Update the enemy's position, required method for game
@@ -18,8 +20,8 @@ Enemy.prototype.update = function(dt) {
   // all computers.
   this.x += this.speed * dt;
 
-  if(this.x > 6 * 83) {
-    this.reset();
+  if(this.x > 6 * 101) {
+    this.x = -101;
   }
 
   // Handle collisions with the player
@@ -32,14 +34,6 @@ Enemy.prototype.update = function(dt) {
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
   ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-};
-
-Enemy.prototype.reset = function() {
-  this.col = -1;
-  this.row = getRandomInt(1, 3);
-  this.x = this.col * 101;
-  this.y = this.row * 83;
-  this.speed = getRandomInt(100, 200);
 };
 
 // Now write your own player class
@@ -108,7 +102,12 @@ Player.prototype.reset = function() {
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
-var allEnemies = [new Enemy()];
+var numEnemies = 3;
+var allEnemies = [];
+for(var i = 0; i < numEnemies; i++) {
+  allEnemies.push(new Enemy(i*101, (i+1)*83));
+}
+
 var player = new Player();
 
 // This listens for key presses and sends the keys to your
