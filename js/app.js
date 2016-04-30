@@ -42,10 +42,7 @@ Enemy.prototype.reset = function() {
 
 var Player = function() {
   this.sprite = 'images/char-boy.png';
-  this.col = 2;
-  this.row = 5;
-  this.x = this.col * 101;
-  this.y = this.row * 83;
+  this.reset();
 };
 
 // Update the player's position, required method for game
@@ -91,6 +88,13 @@ Player.prototype.handleInput = function(key) {
       this.row++;
       break;
   }
+};
+
+Player.prototype.reset = function() {
+  this.col = 2;
+  this.row = 5;
+  this.x = this.col * 101;
+  this.y = this.row * 83;
 };
 
 // Now instantiate your objects.
