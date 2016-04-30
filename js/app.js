@@ -61,12 +61,13 @@ Player.prototype.update = function() {
     this.col = 4;
   }
 
-  if(this.row < 0) {
-    this.row = 0;
-  }
-
   if(this.row > 5) {
     this.row = 5;
+  }
+
+  // Reset the player's position... has reached the water
+  if(this.row == 0) {
+    this.reset();
   }
 
   this.x = this.col * 101;
