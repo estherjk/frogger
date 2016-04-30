@@ -6,6 +6,8 @@ var Enemy = function() {
   // The image/sprite for our enemies, this uses
   // a helper we've provided to easily load images
   this.sprite = 'images/enemy-bug.png';
+
+  this.reset();
 };
 
 // Update the enemy's position, required method for game
@@ -14,11 +16,24 @@ Enemy.prototype.update = function(dt) {
   // You should multiply any movement by the dt parameter
   // which will ensure the game runs at the same speed for
   // all computers.
+  this.x += this.speed * dt;
+
+  if(this.x > 6 * 83) {
+    this.reset();
+  }
 };
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
   ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
+
+Enemy.prototype.reset = function() {
+  this.col = -1;
+  this.row = getRandomInt(1, 3);
+  this.x = this.col * 101;
+  this.y = this.row * 83;
+  this.speed = getRandomInt(100, 200);
 };
 
 // Now write your own player class
@@ -82,7 +97,7 @@ Player.prototype.handleInput = function(key) {
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
-var allEnemies = [];
+var allEnemies = [new Enemy()];
 var player = new Player();
 
 // This listens for key presses and sends the keys to your
@@ -97,3 +112,7 @@ document.addEventListener('keyup', function(e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
+
+function getRandomInt(min, max) {
+  return Math.floor((Math.random() * (max - min + 1)) + min);
+};
